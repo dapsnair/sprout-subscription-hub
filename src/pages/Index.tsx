@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
@@ -9,77 +8,8 @@ import Footer from '@/components/Footer';
 import FadeInSection from '@/components/FadeInSection';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
-const products = [
-  {
-    id: 'starter-sub',
-    title: 'Starter Pack',
-    description: 'Perfect for individuals or small households just starting with microgreens.',
-    image: 'https://images.unsplash.com/photo-1592394533824-9440e5d2aa7a?q=80&w=2070&auto=format&fit=crop',
-    price: 24.99,
-    perMonth: 24.99,
-    isSubscription: true,
-    features: [
-      '2 varieties of microgreens',
-      'Weekly delivery',
-      'Recipe cards included',
-      'Easy pause or cancel anytime',
-    ],
-    popular: false,
-  },
-  {
-    id: 'premium-sub',
-    title: 'Premium Pack',
-    description: 'Our most popular subscription option with the perfect balance of variety and value.',
-    image: 'https://images.unsplash.com/photo-1583764225393-5a76eb6754ef?q=80&w=2070&auto=format&fit=crop',
-    price: 39.99,
-    perMonth: 39.99,
-    isSubscription: true,
-    features: [
-      '4 varieties of microgreens',
-      'Weekly delivery',
-      'Recipe cards included',
-      'Nutritional guide',
-      'Priority harvesting',
-      'Easy pause or cancel anytime',
-    ],
-    popular: true,
-  },
-  {
-    id: 'family-sub',
-    title: 'Family Pack',
-    description: 'Abundant supply of microgreens perfect for larger households or avid health enthusiasts.',
-    image: 'https://images.unsplash.com/photo-1584270992527-3d9d7fc54d82?q=80&w=2070&auto=format&fit=crop',
-    price: 59.99,
-    perMonth: 59.99,
-    isSubscription: true,
-    features: [
-      '6 varieties of microgreens',
-      'Weekly delivery',
-      'Double portions of each variety',
-      'Recipe cards & nutritional guide',
-      'Priority harvesting',
-      'VIP customer support',
-      'Easy pause or cancel anytime',
-    ],
-    popular: false,
-  },
-  {
-    id: 'trial-pack',
-    title: 'Trial Pack',
-    description: 'Try our microgreens with this one-time purchase before committing to a subscription.',
-    image: 'https://images.unsplash.com/photo-1579113800032-c38bd7635818?q=80&w=2070&auto=format&fit=crop',
-    price: 29.99,
-    isSubscription: false,
-    features: [
-      'One-time delivery',
-      '3 varieties of microgreens',
-      'Recipe cards included',
-      'Satisfaction guaranteed',
-    ],
-    popular: false,
-  },
-];
+import { products } from '@/data/products';
+import { Link } from 'react-router-dom';
 
 const Index = () => {
   // Smooth scroll for anchor links
@@ -152,10 +82,12 @@ const Index = () => {
                     <p className="text-lg text-muted-foreground mb-8">
                       Join thousands of health-conscious customers who've made our microgreens a part of their weekly meal routine.
                     </p>
-                    <Button size="lg" className="btn-hover group">
-                      Get Started Today
-                      <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                    </Button>
+                    <Link to="/product/premium-sub">
+                      <Button size="lg" className="btn-hover group">
+                        Get Started Today
+                        <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
                   </FadeInSection>
                 </div>
                 
