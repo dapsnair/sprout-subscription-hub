@@ -37,7 +37,7 @@ const features = [
       </svg>
     ),
     title: 'Harvested to Order',
-    description: 'Your microgreens are harvested the same day they're shipped, guaranteeing optimal freshness and flavor.'
+    description: 'Your microgreens are harvested the same day they\'re shipped, guaranteeing optimal freshness and flavor.'
   },
   {
     icon: (
