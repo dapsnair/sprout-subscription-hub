@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -13,7 +12,15 @@ import {
   CardTitle 
 } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ArrowRight, CheckCircle, Info } from 'lucide-react';
+import { 
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { ArrowRight, CheckCircle, Info, Utensils } from 'lucide-react';
 import FadeInSection from '@/components/FadeInSection';
 
 // Microgreens data
@@ -144,7 +151,7 @@ const VarietyCard = ({ variety }: { variety: typeof microgreensData[0] }) => {
             <ul className="space-y-1">
               {variety.nutritionalHighlights.map((highlight, idx) => (
                 <li key={idx} className="flex items-start gap-2 text-sm">
-                  <CheckCircle size={14} className="text-sprout-500 mt-0.5 flex-shrink-0" />
+                  <CheckCircle size={14} className="text-primary mt-0.5 flex-shrink-0" />
                   <span>{highlight}</span>
                 </li>
               ))}
@@ -153,17 +160,117 @@ const VarietyCard = ({ variety }: { variety: typeof microgreensData[0] }) => {
         </div>
       </CardContent>
       <CardFooter className="pt-0">
-        <Button variant="outline" size="sm" className="w-full">
-          <Info className="mr-2 h-4 w-4" />
-          Culinary Uses
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button variant="outline" size="sm" className="w-full">
+              <Utensils className="mr-2 h-4 w-4" />
+              Culinary Uses
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <Utensils className="h-5 w-5 text-primary" />
+                Culinary Uses for {variety.name}
+              </DialogTitle>
+              <DialogDescription>
+                Discover delicious ways to incorporate {variety.name.toLowerCase()} into your meals.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="mt-4">
+              <ul className="space-y-3">
+                {variety.culinaryUses.map((use, idx) => (
+                  <li key={idx} className="flex items-start gap-3 p-3 rounded-md bg-secondary/50">
+                    <div className="bg-primary/10 p-2 rounded-full">
+                      <Utensils className="h-4 w-4 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-medium">{use}</p>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {getCulinaryDescription(variety.id, use)}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-6">
+                <h4 className="text-sm font-medium mb-2">Pro Tip:</h4>
+                <p className="text-sm text-muted-foreground">
+                  {getProTip(variety.id)}
+                </p>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </CardFooter>
     </Card>
   );
 };
 
+const getCulinaryDescription = (varietyId: string, use: string): string => {
+  const descriptions: Record<string, Record<string, string>> = {
+    broccoli: {
+      'Salads': 'Add a nutritional boost to green salads with a handful of broccoli microgreens on top.',
+      'Sandwiches': 'Layer between sandwich ingredients for an extra crunch and nutritional boost.',
+      'Garnish for soups': 'Sprinkle on top of soups just before serving for added flavor and visual appeal.'
+    },
+    sunflower: {
+      'Salads': 'The hearty texture makes them a substantial salad base or mix with other greens.',
+      'Sandwiches': 'Their nutty flavor and crunch make them perfect for sandwiches and wraps.',
+      'Wraps and rolls': 'Use as a main green in spring rolls or wraps for added texture.'
+    },
+    pea: {
+      'Stir-fries': 'Add at the last minute to stir-fries for a sweet, delicate flavor.',
+      'Salads': 'Mix with other greens or use alone for a distinctively sweet salad.',
+      'Garnish for spring dishes': 'Perfect as a garnish for spring-themed dishes and soups.'
+    },
+    radish: {
+      'Spicy addition to sandwiches': 'Add a peppery kick to sandwiches and burgers.',
+      'Salad accent': 'Mix with milder greens to add a spicy contrast in salads.',
+      'Garnish for rich dishes': 'Use to cut through rich, fatty dishes with their sharp flavor.'
+    },
+    amaranth: {
+      'Color accent in salads': 'Add visual pop with their striking magenta stems in salads.',
+      'Garnish for plating': 'Use as a beautiful garnish for professionally plated dishes.',
+      'Smoothie addition': 'Add to smoothies for color and nutritional benefits.'
+    },
+    kale: {
+      'Smoothies': 'Blend into smoothies for nutrition without the bitterness of mature kale.',
+      'Salads': 'Mix with other greens for a mild kale flavor in salads.',
+      'Grain bowls': 'Top grain bowls for added nutrition and visual appeal.'
+    },
+    basil: {
+      'Italian dishes': 'Add to pasta, pizza, and other Italian favorites just before serving.',
+      'Caprese salads': 'Use in place of or alongside mature basil in caprese salads.',
+      'Infused oils': 'Use to infuse oils with concentrated basil flavor.'
+    },
+    cilantro: {
+      'Mexican cuisine': 'Perfect for tacos, salsas, and other Mexican dishes.',
+      'Thai dishes': 'Add to pad thai, curries, and other Thai cuisine.',
+      'Fresh salsas': 'Mix into fresh salsas for a bright, citrusy note.'
+    }
+  };
+  
+  return descriptions[varietyId]?.[use] || 'A versatile addition to your culinary creations.';
+};
+
+const getProTip = (varietyId: string): string => {
+  const tips: Record<string, string> = {
+    broccoli: 'For maximum nutrition, consume broccoli microgreens raw as heat can reduce their sulforaphane content.',
+    sunflower: 'Store sunflower microgreens with a slightly damp paper towel in a container in the refrigerator to maintain their crispness.',
+    pea: 'Try lightly sautéing pea shoots with garlic and a splash of sesame oil for a simple side dish.',
+    radish: 'Pair radish microgreens with creamy dishes where their spicy notes can cut through richness.',
+    amaranth: 'The vibrant color of amaranth microgreens intensifies when grown with more light exposure.',
+    kale: 'Massage kale microgreens with a little olive oil to soften them slightly before adding to salads.',
+    basil: 'Chop basil microgreens and mix with softened butter to create a flavorful compound butter for bread or steak.',
+    cilantro: 'If you find mature cilantro too strong, the microgreen version offers a more subtle flavor profile that might be more palatable.'
+  };
+  
+  return tips[varietyId] || 'Harvest just before use for maximum freshness and flavor.';
+};
+
 const Varieties = () => {
-  const [selectedCategory, setSelectedCategory] = React.useState('all');
+  const [selectedCategory, setSelectedCategory] = useState('all');
   
   const filteredVarieties = selectedCategory === 'all' 
     ? microgreensData 
