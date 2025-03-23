@@ -1,8 +1,10 @@
+
 import React, { useEffect } from 'react';
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import ProductCard from '@/components/ProductCard';
 import Features from '@/components/Features';
+import MicrogreensInfo from '@/components/MicrogreensInfo';
 import Testimonials from '@/components/Testimonials';
 import Footer from '@/components/Footer';
 import FadeInSection from '@/components/FadeInSection';
@@ -62,6 +64,8 @@ const Index = () => {
         </section>
         
         <Features />
+        
+        <MicrogreensInfo />
         
         <section className="section-padding bg-white">
           <div className="container px-6 mx-auto">
