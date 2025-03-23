@@ -27,7 +27,7 @@ const microgreensData = [
     nutritionalHighlights: ['High in vitamin C and K', 'Contains sulforaphane', 'Rich in antioxidants'],
     culinaryUses: ['Salads', 'Sandwiches', 'Garnish for soups'],
     image: 'https://images.unsplash.com/photo-1622206151226-18ca2c9ab4a1',
-    description: 'Broccoli microgreens are one of the most nutritionally dense varieties available. Their mild, slightly spicy flavor makes them versatile for many dishes. They're particularly prized for their high concentration of sulforaphane, a powerful cancer-fighting compound.'
+    description: 'Broccoli microgreens are one of the most nutritionally dense varieties available. Their mild, slightly spicy flavor makes them versatile for many dishes. They\'re particularly prized for their high concentration of sulforaphane, a powerful cancer-fighting compound.'
   },
   {
     id: 'sunflower',
@@ -38,7 +38,7 @@ const microgreensData = [
     nutritionalHighlights: ['High in protein and fiber', 'Rich in zinc and B vitamins', 'Good source of vitamin E'],
     culinaryUses: ['Salads', 'Sandwiches', 'Wraps and rolls'],
     image: 'https://images.unsplash.com/photo-1570367655924-2aa1e2d97b5a',
-    description: 'Sunflower microgreens are beloved for their hearty texture and nutty flavor profile. They have a satisfying crunch that adds dimension to sandwiches and salads. Their mild taste makes them appealing even to those who typically don't enjoy greens.'
+    description: 'Sunflower microgreens are beloved for their hearty texture and nutty flavor profile. They have a satisfying crunch that adds dimension to sandwiches and salads. Their mild taste makes them appealing even to those who typically don\'t enjoy greens.'
   },
   {
     id: 'pea',
@@ -49,7 +49,7 @@ const microgreensData = [
     nutritionalHighlights: ['High in folate and fiber', 'Good source of vitamins A and C', 'Contains lutein and zeaxanthin'],
     culinaryUses: ['Stir-fries', 'Salads', 'Garnish for spring dishes'],
     image: 'https://images.unsplash.com/photo-1576060974974-933acee13b58',
-    description: 'Pea shoots offer a delightful sweetness reminiscent of fresh garden peas. Their delicate tendrils and leaves add visual appeal to any dish. They're particularly popular in Asian cuisine and pair wonderfully with lighter flavors.'
+    description: 'Pea shoots offer a delightful sweetness reminiscent of fresh garden peas. Their delicate tendrils and leaves add visual appeal to any dish. They\'re particularly popular in Asian cuisine and pair wonderfully with lighter flavors.'
   },
   {
     id: 'radish',
@@ -60,7 +60,7 @@ const microgreensData = [
     nutritionalHighlights: ['Rich in antioxidants', 'Good source of vitamin C and B6', 'Contains anthocyanins'],
     culinaryUses: ['Spicy addition to sandwiches', 'Salad accent', 'Garnish for rich dishes'],
     image: 'https://images.unsplash.com/photo-1606631157358-259487c187c3',
-    description: 'Radish microgreens pack a powerful peppery punch that adds personality to milder dishes. They're one of the quickest varieties to grow, making them ideal for impatient gardeners. Their vibrant stems can range from pink to purple, adding visual appeal.'
+    description: 'Radish microgreens pack a powerful peppery punch that adds personality to milder dishes. They\'re one of the quickest varieties to grow, making them ideal for impatient gardeners. Their vibrant stems can range from pink to purple, adding visual appeal.'
   },
   {
     id: 'amaranth',
@@ -104,7 +104,7 @@ const microgreensData = [
     nutritionalHighlights: ['Contains vitamin A and K', 'Rich in antioxidants', 'Good source of dietary fiber'],
     culinaryUses: ['Mexican cuisine', 'Thai dishes', 'Fresh salsas'],
     image: 'https://images.unsplash.com/photo-1616923205258-c20c4a66a271',
-    description: 'Cilantro microgreens offer the distinctive flavor that people either love or avoid, but in a slightly more approachable form. They're particularly well-suited to cuisines that traditionally use cilantro, adding a fresh, citrusy note to dishes.'
+    description: 'Cilantro microgreens offer the distinctive flavor that people either love or avoid, but in a slightly more approachable form. They\'re particularly well-suited to cuisines that traditionally use cilantro, adding a fresh, citrusy note to dishes.'
   }
 ];
 
