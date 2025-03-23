@@ -1,92 +1,130 @@
 
 import React, { useState, useEffect } from 'react';
-import { Button } from "@/components/ui/button";
+import { Link, useLocation } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, X } from 'lucide-react';
+import CartButton from './CartButton';
+import { useMobile } from '@/hooks/use-mobile';
 
 const Header = () => {
+  const location = useLocation();
+  const isMobile = useMobile();
   const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const isHome = location.pathname === '/';
+  const isTransparent = isHome && !isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'Shop', path: '/product/premium-sub' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'About', path: '/#about' },
+  ];
+
   return (
-    <header 
+    <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white/80 backdrop-blur-md shadow-sm' : 'bg-transparent'
+        isTransparent
+          ? 'bg-transparent py-6'
+          : 'bg-white/95 backdrop-blur-sm shadow-sm py-4'
       }`}
     >
-      <div className="container mx-auto px-6 py-4">
+      <div className="container px-6 mx-auto">
         <div className="flex items-center justify-between">
-          <a href="/" className="flex items-center space-x-2">
-            <span className="h-8 w-8 rounded-full bg-sprout-500 flex items-center justify-center">
-              <span className="h-3 w-3 bg-white rounded-full"></span>
-            </span>
-            <span className="font-display text-xl font-medium">Sprout</span>
-          </a>
+          <Link to="/" className="font-bold text-2xl text-primary">
+            Sprout
+          </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <a href="#products" className="text-sm font-medium hover:text-primary transition-colors">Products</a>
-            <a href="#benefits" className="text-sm font-medium hover:text-primary transition-colors">Benefits</a>
-            <a href="#testimonials" className="text-sm font-medium hover:text-primary transition-colors">Testimonials</a>
-            <a href="#faq" className="text-sm font-medium hover:text-primary transition-colors">FAQ</a>
-            <Button className="btn-hover">Get Started</Button>
-          </nav>
-
-          {/* Mobile menu button */}
-          <button 
-            className="md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {isMobile ? (
+            <div className="flex items-center gap-2">
+              <CartButton />
+              
+              <Sheet open={open} onOpenChange={setOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Menu size={24} />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent>
+                  <div className="flex flex-col h-full">
+                    <div className="flex justify-between items-center mb-6">
+                      <Link 
+                        to="/" 
+                        className="font-bold text-2xl text-primary"
+                        onClick={() => setOpen(false)}
+                      >
+                        Sprout
+                      </Link>
+                      <Button variant="ghost" size="icon" onClick={() => setOpen(false)}>
+                        <X size={24} />
+                      </Button>
+                    </div>
+                    
+                    <nav className="flex flex-col gap-4">
+                      {navLinks.map((link) => (
+                        <Link
+                          key={link.path}
+                          to={link.path}
+                          className={`text-lg py-2 border-b border-border ${
+                            location.pathname === link.path ? 'text-primary font-medium' : ''
+                          }`}
+                          onClick={() => setOpen(false)}
+                        >
+                          {link.name}
+                        </Link>
+                      ))}
+                    </nav>
+                    
+                    <div className="mt-auto mb-6">
+                      <Link to="/product/premium-sub" onClick={() => setOpen(false)}>
+                        <Button className="w-full">Subscribe Now</Button>
+                      </Link>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
+          ) : (
+            <div className="flex items-center gap-6">
+              <nav className="flex items-center gap-6">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className={`transition-colors hover:text-primary ${
+                      location.pathname === link.path ? 'text-primary font-medium' : isTransparent ? 'text-foreground/90' : ''
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+              </nav>
+              
+              <div className="flex items-center gap-4">
+                <CartButton />
+                <Link to="/product/premium-sub">
+                  <Button>Subscribe Now</Button>
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-
-      {/* Mobile Navigation */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-md shadow-lg">
-          <nav className="container mx-auto px-6 py-6 flex flex-col space-y-4">
-            <a 
-              href="#products" 
-              className="text-sm font-medium py-2 hover:text-primary transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Products
-            </a>
-            <a 
-              href="#benefits" 
-              className="text-sm font-medium py-2 hover:text-primary transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Benefits
-            </a>
-            <a 
-              href="#testimonials" 
-              className="text-sm font-medium py-2 hover:text-primary transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Testimonials
-            </a>
-            <a 
-              href="#faq" 
-              className="text-sm font-medium py-2 hover:text-primary transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              FAQ
-            </a>
-            <Button className="w-full mt-2 btn-hover">Get Started</Button>
-          </nav>
-        </div>
-      )}
     </header>
   );
 };
